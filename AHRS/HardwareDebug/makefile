@@ -4,7 +4,7 @@
 
 -include makefile.init
 
-RM := rm -rf *.sni *.dbg *.lst *.lis *.lpp *.map *.x *.lbp *.bls *.libelf *.rel *.lbk *.abs  *.obj *.p *.pp *.d *.asm 1st/*.obj 1st/*.d 1st/*.asm 1st/*.abs
+RM := rm -rf *.sni *.dbg *.lst *.lis *.lpp *.map *.x *.lbp *.bls *.libelf *.rel *.lbk *.abs *.mi *.jmp *.fsy 1st/*.abs 1st/*.jmp 1st/*.fsy
 
 # All of the sources participating in the build are defined here
 -include sources.mk
@@ -81,8 +81,7 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables
 LINKER_OUTPUT_OUTPUTS += \
-AHRS.abs \
-AHRS.x
+AHRS.abs
 
 LIBRARY_GENERATOR_OUTPUTTYPE_OUTPUTS += \
 AHRS.lib
@@ -94,7 +93,8 @@ $(ASSEMBLER_OBJS) \
 $(CUSTOM_OBJS)
 
 # All Target
-all: $(LINKER_OUTPUT_OUTPUTS) 
+all: $(LINKER_OUTPUT_OUTPUTS) AHRS.x
+
 	@echo 'Build complete.'
 
 AHRS.abs: $(OBJS)  $(ALL_ASMS) $(LIBRARY_GENERATOR_OUTPUTTYPE_OUTPUTS) 
@@ -116,20 +116,20 @@ AHRS.lib:
 	@echo.
 
 AHRS.x: AHRS.abs
-		-C:\Renesas\e2_studio\eclipse\/../\Utilities\\ccrx\renesas_cc_converter.exe AHRS.abs AHRS.x
+		-C:\Renesas\e2_studio\Utilities\\ccrx\renesas_cc_converter.exe AHRS.abs AHRS.x
 
 # Other Targets
 clean:
 	-$(RM) $(LINKER_OUTPUT_OUTPUTS) $(LIBRARY_GENERATOR_OUTPUTTYPE_OUTPUTS)
-	-rm -rf generate/r_glyph/src/glyph/drivers/*.obj generate/r_glyph/src/glyph/drivers/*.d generate/r_glyph/src/glyph/drivers/*.asm generate/r_glyph/src/glyph/drivers/*.p generate/r_glyph/src/glyph/drivers/*.src generate/r_glyph/src/glyph/drivers/*.jmp generate/r_glyph/src/glyph/drivers/*.lst generate/r_glyph/src/glyph/drivers/*.prn 
-	-rm -rf src/eMPL/*.obj src/eMPL/*.d src/eMPL/*.asm src/eMPL/*.p src/eMPL/*.src src/eMPL/*.jmp src/eMPL/*.lst src/eMPL/*.prn 
-	-rm -rf generate/r_glyph/src/glyph/*.obj generate/r_glyph/src/glyph/*.d generate/r_glyph/src/glyph/*.asm generate/r_glyph/src/glyph/*.p generate/r_glyph/src/glyph/*.src generate/r_glyph/src/glyph/*.jmp generate/r_glyph/src/glyph/*.lst generate/r_glyph/src/glyph/*.prn 
-	-rm -rf generate/r_glyph/src/glyph/fonts/*.obj generate/r_glyph/src/glyph/fonts/*.d generate/r_glyph/src/glyph/fonts/*.asm generate/r_glyph/src/glyph/fonts/*.p generate/r_glyph/src/glyph/fonts/*.src generate/r_glyph/src/glyph/fonts/*.jmp generate/r_glyph/src/glyph/fonts/*.lst generate/r_glyph/src/glyph/fonts/*.prn 
-	-rm -rf generate/r_riic_rx600/src/*.obj generate/r_riic_rx600/src/*.d generate/r_riic_rx600/src/*.asm generate/r_riic_rx600/src/*.p generate/r_riic_rx600/src/*.src generate/r_riic_rx600/src/*.jmp generate/r_riic_rx600/src/*.lst generate/r_riic_rx600/src/*.prn 
-	-rm -rf generate/r_bsp/board/rdkrx63n/*.obj generate/r_bsp/board/rdkrx63n/*.d generate/r_bsp/board/rdkrx63n/*.asm generate/r_bsp/board/rdkrx63n/*.p generate/r_bsp/board/rdkrx63n/*.src generate/r_bsp/board/rdkrx63n/*.jmp generate/r_bsp/board/rdkrx63n/*.lst generate/r_bsp/board/rdkrx63n/*.prn 
-	-rm -rf generate/r_glyph/src/*.obj generate/r_glyph/src/*.d generate/r_glyph/src/*.asm generate/r_glyph/src/*.p generate/r_glyph/src/*.src generate/r_glyph/src/*.jmp generate/r_glyph/src/*.lst generate/r_glyph/src/*.prn 
-	-rm -rf generate/r_rspi_rx600/src/*.obj generate/r_rspi_rx600/src/*.d generate/r_rspi_rx600/src/*.asm generate/r_rspi_rx600/src/*.p generate/r_rspi_rx600/src/*.src generate/r_rspi_rx600/src/*.jmp generate/r_rspi_rx600/src/*.lst generate/r_rspi_rx600/src/*.prn 
-	-rm -rf src/*.obj src/*.d src/*.asm src/*.p src/*.src src/*.jmp src/*.lst src/*.prn 
+	-rm -rf generate/r_glyph/src/glyph/drivers/*.obj generate/r_glyph/src/glyph/drivers/*.d generate/r_glyph/src/glyph/drivers/*.asm generate/r_glyph/src/glyph/drivers/*.p generate/r_glyph/src/glyph/drivers/*.pp generate/r_glyph/src/glyph/drivers/*.src generate/r_glyph/src/glyph/drivers/*.jmp generate/r_glyph/src/glyph/drivers/*.lst generate/r_glyph/src/glyph/drivers/*.prn generate/r_glyph/src/glyph/drivers/*.i 
+	-rm -rf src/eMPL/*.obj src/eMPL/*.d src/eMPL/*.asm src/eMPL/*.p src/eMPL/*.pp src/eMPL/*.src src/eMPL/*.jmp src/eMPL/*.lst src/eMPL/*.prn src/eMPL/*.i 
+	-rm -rf generate/r_glyph/src/glyph/*.obj generate/r_glyph/src/glyph/*.d generate/r_glyph/src/glyph/*.asm generate/r_glyph/src/glyph/*.p generate/r_glyph/src/glyph/*.pp generate/r_glyph/src/glyph/*.src generate/r_glyph/src/glyph/*.jmp generate/r_glyph/src/glyph/*.lst generate/r_glyph/src/glyph/*.prn generate/r_glyph/src/glyph/*.i 
+	-rm -rf generate/r_glyph/src/glyph/fonts/*.obj generate/r_glyph/src/glyph/fonts/*.d generate/r_glyph/src/glyph/fonts/*.asm generate/r_glyph/src/glyph/fonts/*.p generate/r_glyph/src/glyph/fonts/*.pp generate/r_glyph/src/glyph/fonts/*.src generate/r_glyph/src/glyph/fonts/*.jmp generate/r_glyph/src/glyph/fonts/*.lst generate/r_glyph/src/glyph/fonts/*.prn generate/r_glyph/src/glyph/fonts/*.i 
+	-rm -rf generate/r_riic_rx600/src/*.obj generate/r_riic_rx600/src/*.d generate/r_riic_rx600/src/*.asm generate/r_riic_rx600/src/*.p generate/r_riic_rx600/src/*.pp generate/r_riic_rx600/src/*.src generate/r_riic_rx600/src/*.jmp generate/r_riic_rx600/src/*.lst generate/r_riic_rx600/src/*.prn generate/r_riic_rx600/src/*.i 
+	-rm -rf generate/r_bsp/board/rdkrx63n/*.obj generate/r_bsp/board/rdkrx63n/*.d generate/r_bsp/board/rdkrx63n/*.asm generate/r_bsp/board/rdkrx63n/*.p generate/r_bsp/board/rdkrx63n/*.pp generate/r_bsp/board/rdkrx63n/*.src generate/r_bsp/board/rdkrx63n/*.jmp generate/r_bsp/board/rdkrx63n/*.lst generate/r_bsp/board/rdkrx63n/*.prn generate/r_bsp/board/rdkrx63n/*.i 
+	-rm -rf generate/r_glyph/src/*.obj generate/r_glyph/src/*.d generate/r_glyph/src/*.asm generate/r_glyph/src/*.p generate/r_glyph/src/*.pp generate/r_glyph/src/*.src generate/r_glyph/src/*.jmp generate/r_glyph/src/*.lst generate/r_glyph/src/*.prn generate/r_glyph/src/*.i 
+	-rm -rf generate/r_rspi_rx600/src/*.obj generate/r_rspi_rx600/src/*.d generate/r_rspi_rx600/src/*.asm generate/r_rspi_rx600/src/*.p generate/r_rspi_rx600/src/*.pp generate/r_rspi_rx600/src/*.src generate/r_rspi_rx600/src/*.jmp generate/r_rspi_rx600/src/*.lst generate/r_rspi_rx600/src/*.prn generate/r_rspi_rx600/src/*.i 
+	-rm -rf src/*.obj src/*.d src/*.asm src/*.p src/*.pp src/*.src src/*.jmp src/*.lst src/*.prn src/*.i 
 	@echo
 	@echo 'Clean complete.'
 

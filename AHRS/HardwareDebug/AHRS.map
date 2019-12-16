@@ -1,4 +1,4 @@
-Renesas Optimizing Linker (W2.08.00 )             18-May-2019 16:26:38
+Renesas Optimizing Linker (W2.08.00 )             16-Dec-2019 19:00:13
 
 *** Options ***
 
@@ -82,21 +82,21 @@ C$BSEC
 C$VECT
                                   fff83970  fff83d6f       400   4
 L
-                                  fff83d70  fff83f5c       1ed   4
+                                  fff83d70  fff83f84       215   4
 D
-                                  fff83f60  fff85e5f      1f00   4
+                                  fff83f88  fff85e87      1f00   4
 D_1
-                                  fff85e60  fff85eb7        58   1
+                                  fff85e88  fff85edf        58   1
 D_2
-                                  fff85eb8  fff85ec5         e   2
+                                  fff85ee0  fff85eed         e   2
 P
-                                  fff85ec6  fff8f061      919c   1
+                                  fff85eee  fff8f248      935b   1
 W
-                                  fff8f064  fff8f064         0   4
+                                  fff8f24c  fff8f24c         0   4
 W_1
-                                  fff8f064  fff8f06b         8   1
+                                  fff8f24c  fff8f253         8   1
 W_2
-                                  fff8f06c  fff8f08f        24   2
+                                  fff8f254  fff8f277        24   2
 $ADDR_C_FFFFFF80
                                   ffffff80  ffffff8f        10   1
 FIXEDVECT

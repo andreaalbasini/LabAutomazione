@@ -175,6 +175,8 @@ int mag_init(MAG_data* mag_data){
 	mag_data->bias[2]  = 216.660;
 	mag_data->ABS 	 = 205438.578;
 
+
+
 	return 0x0;
 
 }// FINE - mag_init(..)
@@ -183,9 +185,9 @@ int mag_read_raw(MAG_data* mag_data){
 	uint8_t tmp[6];
 
 	if(i2c_read(HMC5983_ADDRESS, HMC5983_OUT_X_MSB, 6, tmp))
-		return 0x1;
+		return 0x1;	mag_data->raw[0] = (tmp[0] << 8) | tmp[1];
 
-	mag_data->raw[0] = (tmp[0] << 8) | tmp[1];
+
 	mag_data->raw[2] = (tmp[2] << 8) | tmp[3];
 	mag_data->raw[1] = (tmp[4] << 8) | tmp[5];
 
