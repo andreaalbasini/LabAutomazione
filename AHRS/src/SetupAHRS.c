@@ -37,26 +37,30 @@ void Setup_MARG(AHRS_out* ahrs)
 
 
 
-	/*lcd_display(LCD_LINE1," IMU SETUP ");
-	lcd_display(LCD_LINE2," IN CORSO ");*/
-
 	CMT_init();
 	imu_init(&ahrs->sens);
 	mag_init(&ahrs->mag);
 
-	//lcd_display(LCD_LINE4,"Calibrazione");
-	//lcd_display(LCD_LINE5,"Magnetometro");
-/*switch(set){
-case 1: calibrationYPR(msg, &ahrs->mag);break;
-case 2: calibrationYPR1(msg, &ahrs->mag);break;
-default: calibrationYPR1(msg, &ahrs -> mag); break;
-}*/
+
 
 	while( PORT4.PIDR.BIT.B0 && PORT4.PIDR.BIT.B1){
 
 	}
 
-	if(!(PORT4.PIDR.BIT.B0))calibrationYPR(msg, &ahrs->mag);
+	if(!(PORT4.PIDR.BIT.B0)){
+
+		lcd_initialize();
+			lcd_clear();
+
+
+		lcd_display(LCD_LINE1," IMU SETUP ");
+		lcd_display(LCD_LINE2," IN CORSO ");
+
+		lcd_display(LCD_LINE4,"Calibrazione");
+		lcd_display(LCD_LINE5,"Magnetometro");
+
+		calibrationYPR(msg, &ahrs->mag);
+	}
 	else if (!(PORT4.PIDR.BIT.B1))calibrationYPR1(msg, &ahrs->mag);
 	else calibrationYPR1(msg, &ahrs->mag);
 
