@@ -52,24 +52,15 @@ case 2: calibrationYPR1(msg, &ahrs->mag);break;
 default: calibrationYPR1(msg, &ahrs -> mag); break;
 }*/
 
-	PORT4.PODR.BIT.B0=0;
-	PORT4.PDR.BIT.B0=0;
-	PORT4.PMR.BIT.B0=0;
-	PORT4.PODR.BIT.B1=0;
-	PORT4.PDR.BIT.B1=0;
-	PORT4.PMR.BIT.B1=0;
+	while( PORT4.PIDR.BIT.B0 && PORT4.PIDR.BIT.B1){
 
-
-	if(PORT4.PIDR.BIT.B0){
-
-		calibrationYPR(msg, &ahrs->mag);
 	}
-	else if(PORT4.PIDR.BIT.B1){
-		calibrationYPR1(msg, &ahrs->mag);
-	}
-	//else {
-	//	calibrationYPR1(msg, &ahrs -> mag);
-	//}
+
+	if(!(PORT4.PIDR.BIT.B0))calibrationYPR(msg, &ahrs->mag);
+	else if (!(PORT4.PIDR.BIT.B1))calibrationYPR1(msg, &ahrs->mag);
+	else calibrationYPR1(msg, &ahrs->mag);
+
+
 }
 
 
