@@ -17,12 +17,12 @@
 #include "CMT.h"
 #include "PrintOnScreen.h"
 #include "SetupAHRS.h"
-
+AHRS_out ahrs;
 
 main(void)
 {
 	/*Dichiarazioni strutture dati utilizzate.*/
-	AHRS_out ahrs;
+	//AHRS_out ahrs;
 	/***************************************************************************************
 	* extern struct timerClocks timers
 	* Description: Avremmo potuto utilizzare per la struttura dati "timerClocks", nel file "CMT.h",

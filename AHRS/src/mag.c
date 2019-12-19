@@ -167,14 +167,14 @@ int mag_init(MAG_data* mag_data){
 	default: break;
 	}
 
-	mag_data->scale[0] = 0.939307;
+/*	mag_data->scale[0] = 0.939307;
 	mag_data->scale[1] = 0.967911;
 	mag_data->scale[2] = 1.108362;
 	mag_data->bias[0]  = -184.460;
 	mag_data->bias[1]  = 136.160;
 	mag_data->bias[2]  = 216.660;
 	mag_data->ABS 	 = 205438.578;
-
+*/
 
 
 	return 0x0;

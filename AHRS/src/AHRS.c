@@ -43,6 +43,15 @@ void getQuat(float* qa, float* qb, float* qc, float* qd){
 }
 void calibrationYPR1(char* msg, MAG_data* mag_data)// calibrazione che fa partire i valori già trovati
 {
+	mag_data->scale[0] = 0.939307;
+		mag_data->scale[1] = 0.967911;
+		mag_data->scale[2] = 1.108362;
+		mag_data->bias[0]  = -184.460;
+		mag_data->bias[1]  = 136.160;
+		mag_data->bias[2]  = 216.660;
+		mag_data->ABS 	 = 205438.578;
+
+
 	sprintf(msg, "%f",mag_data->scale[0]);
 		lcd_display(LCD_LINE1, (uint8_t*)msg);
 		sprintf(msg, "%f",mag_data->scale[1]);

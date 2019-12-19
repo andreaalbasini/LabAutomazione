@@ -36,7 +36,7 @@ void Setup_MARG(AHRS_out* ahrs)
 
 
 
-
+	//inizializzo il timer, l'imu e il magnetometro
 	CMT_init();
 	imu_init(&ahrs->sens);
 	mag_init(&ahrs->mag);
