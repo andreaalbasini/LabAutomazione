@@ -6,14 +6,16 @@
 /*******************************************************************************
  * Author: Omar Cocchairella
  *******************************************************************************/
-/*******************************************************************************
+/**********************************************************************************************
 * History
 * 			DD.MM.YYYY     Version     Description
 *			22.01.2018     1.01        Revisione della versione di Sebastian Giles
 * 										da parte di Omar Cocchairella.
 *			10.01.2019     1.01.1      Martin Breccia commento della versione
 * 										di Omar Cocchairella.
-*******************************************************************************/
+* 			16.01.2020     1.01.01.1   Revisione da parte di Raiola Corrado, Costea Marian Ioan,
+* 			                           Cafaro Adolfo Damiano, Albasini Andrea
+***********************************************************************************************/
 
 
 /******************************************************************************
@@ -123,6 +125,9 @@ int mag_init(MAG_data* mag_data){
 	// se stiamo usando il modulo drotek chiediamo ad MPU6050 di
 	// farci accedere al magnetometro che è suo slave
 	// altrimenti basta avviare l'i2c
+	// If we are using drotek module we ask at MPU6050 to
+	// let us access to magnetometer (his slave)
+	// instead start i2c
 #ifdef DROTEK_IMU_10DOF_V2
 	if(mpu_set_bypass(1))
 		return 0x1;
@@ -133,25 +138,27 @@ int mag_init(MAG_data* mag_data){
 
 	// leggiamo il registro identificativo e verifichiamo che abbia
 	// il valore costante come da datasheet
+	// Read identification register and verifies that it has
+	// costant value as in datasheet
 	if(i2c_read(HMC5983_ADDRESS, HMC5983_ID_A, 1, &tmp))
 		return 0x2;
 	if(tmp != HMC5983_ID_A_VAL)
 		return 0x3;
 
 
-	// abilitiamo la continuous mode
+	// Enable the continuous mode
 	tmp = 0;
 	if(i2c_write(HMC5983_ADDRESS, HMC5983_MODE, 1, &tmp))
 		return 0x4;
-	//scarico registro CONF A
+	//register CONF A download
 	if(i2c_read(HMC5983_ADDRESS, HMC5983_CONF_A, 1, &tmp))
 		return 0x4;
-	//imposto frequenza a 220 Hz
+	//Set frequency at 220 Hz
 	tmp |= 0x1C;
-	//carico il registro modificato
+	//Upload modified register
 	if(i2c_write(HMC5983_ADDRESS, HMC5983_CONF_A, 1, &tmp))
 		return 0x5;
-	//scarico registro CONF B
+	//register CONF B download
 	if(i2c_read(HMC5983_ADDRESS, HMC5983_CONF_B, 1, &tmp))
 		return 0x6;
 	tmp = tmp >> 5;
@@ -166,7 +173,8 @@ int mag_init(MAG_data* mag_data){
 	case 7: mag_data->sens = 4.35; break;
 	default: break;
 	}
-
+    // Dati spostati nella calibrazione di default
+	// Data moved in default calibration
 /*	mag_data->scale[0] = 0.939307;
 	mag_data->scale[1] = 0.967911;
 	mag_data->scale[2] = 1.108362;
@@ -179,7 +187,7 @@ int mag_init(MAG_data* mag_data){
 
 	return 0x0;
 
-}// FINE - mag_init(..)
+}// END - mag_init(..)
 
 int mag_read_raw(MAG_data* mag_data){
 	uint8_t tmp[6];
@@ -193,7 +201,7 @@ int mag_read_raw(MAG_data* mag_data){
 
 	return 0x0;
 	
-}// FINE - mag_read_raw(..)
+}// END - mag_read_raw(..)
 
 int mag_read(MAG_data* mag_data){
 	if (mag_read_raw(mag_data))
@@ -204,7 +212,7 @@ int mag_read(MAG_data* mag_data){
 	mag_data->z = ((float)mag_data->raw[2] * mag_data->sens - mag_data->bias[2]) * mag_data->scale[2];
 
 	return 0x0;
-}// FINE - mag_read(..)
+}// END - mag_read(..)
 
 int magcal(MAG_data* mag_data)
 {
@@ -255,5 +263,5 @@ int magcal(MAG_data* mag_data)
 	mag_data->scale[2] = avg_rad/((float)mag_rad[2]);
 	mag_data->ABS = avg_rad*avg_rad;
 	return 0;
-}// FINE - magcal(..)
+}// END - magcal(..)
 

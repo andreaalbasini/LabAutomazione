@@ -41,25 +41,27 @@ int imu_read(IMU_raw* imu_raw, IMU_sens* imu_sens, IMU_temp* imu_temp){
 }
 
 int imu_init(IMU_sens* imu_sens){
-	// avvia i2c
+	// i2c starts
 	if (i2c_init())
 		return 0x1;
 	// avvia sensore con la libreria Inversense
+	//it uses Inversense library to start the sensor
 	if (mpu_init(0))
 		return 0x2;
 	// abilita sensori Giroscopio e Accelerometro
+	// it enables Gyroscope and Accelerometer sensors
 	if (mpu_set_sensors(INV_XYZ_ACCEL | INV_XYZ_GYRO))
 		return 0x3;
 	// imposta frequenza la conversione dei dati inerziali
+	// it sets inertion data frequency convertion
 	if (mpu_set_sample_rate(200/*Hz*/)) //Hz
 		return 0x4;
 
 	// leggi sensibilità  del sensore
+	// read sensor sensibility
 	mpu_get_accel_sens(&imu_sens->acc_sens);
 	mpu_get_gyro_sens(&imu_sens->gyr_sens);
 	return 0x0;
 }
 
-void calibrazioneAngoliRiferimento(IMU_rif* imu_rif){
-	// nel caso di errore eccessivo della imu in quanto posizione, effettuare filtro qui
-}
+

@@ -39,8 +39,10 @@ typedef struct {
 
 /*******************************************************************************
  * Function name: mag_init
- * Description  : iniziaizza il magnetometro settando i registri per proseguire
- * 				   ed i reativi bias del magnetometro reativi al luogo di utilizzo.
+ * Description  : inizializza il magnetometro settando i registri per proseguire
+ * 				   ed i relativi bias del magnetometro relativi al luogo di utilizzo.
+ * 				  Magnetometer initialitation by registers setting to continue
+ * 				  and
  * Arguments    : (MAG_data*) mag_data -puntatore alla struttura mag_data
  * 					contenente i dati relativi al magnetometro.
  * Return value : hex - 0x0 se ok.

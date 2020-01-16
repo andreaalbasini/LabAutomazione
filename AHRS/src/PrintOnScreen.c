@@ -21,14 +21,14 @@
 #include <stdlib.h>
 
 
-/* Variabili per la funzione RealTimeChart */
+/* Variables for RealTimeChart function */
 volatile float yaw = 0;
 volatile float pitch = 0;
 volatile float roll = 0;
 volatile float oy = 0;
 volatile float op = 0;
 volatile float or = 0;
-//FILE *DATI;
+
 
 
 void Print_ABS(AHRS_out* ahrs)
@@ -51,15 +51,7 @@ void Print_Angoli(AHRS_out* ahrs)
 	lcd_display(LCD_LINE4,(uint8_t*) msg);
 	sprintf(msg,"R: %3.1f",ahrs->ahrs_data.RollDeg);
 	lcd_display(LCD_LINE5,(uint8_t*) msg);
-	/*DATI= fopen("angoli_imu.txt", "a");
-	if(DATI== NULL){
-		perror("Errore in apertura del file");
-		exit(1);
-	}
 
-	fprintf( DATI, "%3.1f\t,%3.1f\t, %3.1f\t ", ahrs->ahrs_data.YawDeg,ahrs->ahrs_data.PitchDeg,ahrs->ahrs_data.RollDeg);
-	fclose(DATI);*/
-}
 
 
 

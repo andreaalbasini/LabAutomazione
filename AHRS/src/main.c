@@ -22,6 +22,7 @@ AHRS_out ahrs;
 main(void)
 {
 	/*Dichiarazioni strutture dati utilizzate.*/
+	//Declaration of used data structures
 	//AHRS_out ahrs;
 	/***************************************************************************************
 	* extern struct timerClocks timers
@@ -34,7 +35,7 @@ main(void)
 	* 				nuovo progetto.
 	**************************************************************************************/
 	extern struct timerClocks timers;
-
+	// Setup function of display, CMT, accelerometer, gyroscope, magnetometer and magnetometer calibration
 	/* funzione di setup dello schermo, CMT, accelerometro, giroscopio, magnetometro e calibrazione magnetometro.*/
 	Setup_MARG(&ahrs);
 
@@ -47,7 +48,16 @@ main(void)
  	 	* Esempio:
  	 	* La frequenza attuale del mpu nel file imu.c è 200Hz, mentre del magnetometro è 220Hz.
  	 	* 1/200 = 0.005 s = 5mS
+ 	 	*
  	 	* ********************/
+		/*********************
+		 * Setting of read frequency is based on mpu and magnetometer frequency.
+		 * Check up these files: imu.c and mag.c
+		 *
+		 * Example:
+		 * Current mpu frequency in imu.c file is 200Hz, while magnetometer one is 220Hz
+		 *
+		 */
 		if(timers.timer_5mS)
 		{
 			Read_MARG(&ahrs);
@@ -60,12 +70,20 @@ main(void)
 		 	 * Lo schermo ha un suo tempo di aggiornamento dello schermo.
 		 	 * Aumentare la frequenza oltre i 100mS è sconsigliato.
 		 	 *************/
+
+			/*************
+			 * Data print frequency on display.
+			 * The screen has a his own update frequency
+			 * Increasing frequency over 100ms is not recomended
+			 *
+			 */
+
 			if(timers.timer_100mS)
 			{
 				Print_ABS(&ahrs);
 				Print_Angoli(&ahrs);
 				Print_VelAng(&ahrs);
-				//Print_Temp(&ahrs);
+
 
 				timers.timer_100mS = 0;
 			}

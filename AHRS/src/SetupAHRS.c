@@ -6,18 +6,20 @@
 /*******************************************************************************
 * Author: Ragaini Davide
  *******************************************************************************/
-/*******************************************************************************
+/***********************************************************************************************
 * History
 * 			DD.MM.YYYY     Version     Description
 *			13.04.2019     1.0         First Release.
-*******************************************************************************/
+*			16.01.2020     1.01.01.1   Revisione da parte di Raiola Corrado, Costea Marian Ioan,
+* 			                           Cafaro Adolfo Damiano, Albasini Andrea
+************************************************************************************************/
 
 
 
 #include "SetupAHRS.h"
 #include "platform.h"
 
-//Routine di setup dell'imu
+//setup IMU
 
 
 void Setup_MARG(AHRS_out* ahrs)
@@ -26,7 +28,7 @@ void Setup_MARG(AHRS_out* ahrs)
 
 	lcd_initialize();
 	lcd_clear();
-	lcd_display(LCD_LINE1,"OH MAAAAN   ");
+	lcd_display(LCD_LINE1,"************");
 	lcd_display(LCD_LINE2," PRESS SW1  ");
 	lcd_display(LCD_LINE3,"  FOR NEW   ");
 	lcd_display(LCD_LINE4,"CALIBRATION ");
@@ -36,17 +38,25 @@ void Setup_MARG(AHRS_out* ahrs)
 
 
 
-	//inizializzo il timer, l'imu e il magnetometro
+
+	// Timer,imu and magnetometer initialization
 	CMT_init();
 	imu_init(&ahrs->sens);
 	mag_init(&ahrs->mag);
 
 
-// chiede di premere o lo sw1 o lo sw2 in base alla scelta dei parametri desiderati
+
+	 // it asks to push sw1 or sw2 based on user choise according to wanted parameters displayed
 	while( PORT4.PIDR.BIT.B0 && PORT4.PIDR.BIT.B1){
 
+		//both registers are at 1 so it stays inside cycle until user press one
+		//of sw, when it happened the programme goes out from cycle to right condition
+
+
 	}
-// se premuto sw1 parte una nuova calibrazione
+
+
+//if push sw1 it will start a new calibration
 	if(!(PORT4.PIDR.BIT.B0)){
 
 		lcd_initialize();
@@ -59,29 +69,24 @@ void Setup_MARG(AHRS_out* ahrs)
 		lcd_display(LCD_LINE4,"Calibrazione");
 		lcd_display(LCD_LINE5,"Magnetometro");
 
-		calibrationYPR(msg, &ahrs->mag);//calibrazione nuova
-	}
-	else if (!(PORT4.PIDR.BIT.B1)) //se viene premuto lo sw2 partono i calori di default
-		calibrationYPR1(msg, &ahrs->mag);
-	else calibrationYPR1(msg, &ahrs->mag); // nel caso in cui ci siano errori parte in default la calibrazione dei valori già calcolati
+		calibrationYPR(msg, &ahrs->mag);// new calibration
 
+	}
+	else if (!(PORT4.PIDR.BIT.B1))        //if push sw2 default parameters will be selected
+		calibrationYPR1(msg, &ahrs->mag);
+
+
+	else calibrationYPR1(msg, &ahrs->mag); // if there are some errors default parameters
+										   //will be selected
 
 }
 
+// Reading function of the filtered MARG data
 
-// Funzione di lettura dei dati dell' MARG filtrati
 void Read_MARG(AHRS_out* ahrs)
 {
 	imu_read(&ahrs->raw, &ahrs->sens, &ahrs->temp);
 	mag_read(&ahrs->mag);
 	getYPR(&ahrs->mag, &ahrs->temp, &ahrs->ahrs_data);
 }
-
-
-
-// Centro di massa
-/*void Centro_di_massa(AHRS_out* ahrs)
-{
-
-}*/
 

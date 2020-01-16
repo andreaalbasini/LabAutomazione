@@ -7,14 +7,16 @@
 * 02/10/2011	SOH Madgwick	Optimised for reduced CPU load
 * 19/02/2012	SOH Madgwick	Magnetometer measurement is normalised
 **************************************************************************/
-/*******************************************************************************
+/**********************************************************************************************
 * History
 * 			DD.MM.YYYY     Version     Description
 *			22.01.2018     1.01        Revisione della versione di Sebastian Giles
 * 										da parte di Omar Cocchairella.
 *			13.04.2019     1.01.1      Ragaini Davide commento della versione
 * 										di Omar Cocchairella.
-*******************************************************************************/
+* 			16.01.2020     1.01.01.1   Revisione da parte di Raiola Corrado, Costea Marian Ioan,
+* 			                           Cafaro Adolfo Damiano, Albasini Andrea
+************************************************************************************************/
 
 #include "AHRS.h"
 
@@ -41,7 +43,8 @@ void getQuat(float* qa, float* qb, float* qc, float* qd){
 	*qc=q2;
 	*qd=q3;
 }
-void calibrationYPR1(char* msg, MAG_data* mag_data)// calibrazione che fa partire i valori già trovati
+
+void calibrationYPR1(char* msg, MAG_data* mag_data)//default calibration
 {
 	mag_data->scale[0] = 0.939307;
 		mag_data->scale[1] = 0.967911;
@@ -51,8 +54,8 @@ void calibrationYPR1(char* msg, MAG_data* mag_data)// calibrazione che fa partir
 		mag_data->bias[2]  = 216.660;
 		mag_data->ABS 	 = 205438.578;
 
-
-	sprintf(msg, "%f",mag_data->scale[0]);
+		//it prints values on display
+	    sprintf(msg, "%f",mag_data->scale[0]);
 		lcd_display(LCD_LINE1, (uint8_t*)msg);
 		sprintf(msg, "%f",mag_data->scale[1]);
 		lcd_display(LCD_LINE2, (uint8_t*)msg);
@@ -70,7 +73,8 @@ void calibrationYPR1(char* msg, MAG_data* mag_data)// calibrazione che fa partir
 		lcd_display(LCD_LINE8,"PRESS SW1 ");
 			while(PORT4.PIDR.BIT.B0);
 
-			//lcd_clear();
+			//when sw1 is pressed values of angles and angular speeds
+			//will update on display in realtime
 
 			sprintf(msg,"");
 			lcd_display(LCD_LINE1, (uint8_t*)msg);
@@ -82,9 +86,9 @@ void calibrationYPR1(char* msg, MAG_data* mag_data)// calibrazione che fa partir
 			lcd_display(LCD_LINE7, (uint8_t*)msg);
 }
 
-void calibrationYPR(char* msg, MAG_data* mag_data) //calibrazione che calcola nuovi valori
+void calibrationYPR(char* msg, MAG_data* mag_data) //new calibration
 {
-	//lcd_display(LCD_LINE7, "Calibration");
+
 	magcal(mag_data);
 	sprintf(msg, "%f",mag_data->scale[0]);
 	lcd_display(LCD_LINE1, (uint8_t*)msg);
@@ -104,7 +108,7 @@ void calibrationYPR(char* msg, MAG_data* mag_data) //calibrazione che calcola nu
 	lcd_display(LCD_LINE8,"PRESS SW1 ");
 	while(PORT4.PIDR.BIT.B0);
 
-	//lcd_clear();
+
 
 	sprintf(msg,"");
 	lcd_display(LCD_LINE1, (uint8_t*)msg);
@@ -115,7 +119,7 @@ void calibrationYPR(char* msg, MAG_data* mag_data) //calibrazione che calcola nu
 	lcd_display(LCD_LINE6, (uint8_t*)msg);
 	lcd_display(LCD_LINE7, (uint8_t*)msg);
 }
-
+	//calculation of angles and angular speeds
 void getYPR(MAG_data* mag_data ,IMU_temp* imu_temp, AHRS_data* ahrs_data){
 	madgwickFilterUpdate(imu_temp->gyrRoll, imu_temp->gyrPitch, imu_temp->gyrYaw, imu_temp->accRoll, imu_temp->accPitch, imu_temp->accYaw, mag_data->x, mag_data->y, mag_data->z);
 
@@ -124,7 +128,7 @@ void getYPR(MAG_data* mag_data ,IMU_temp* imu_temp, AHRS_data* ahrs_data){
 	ahrs_data->PitchDeg = ahrs_data->PitchRad * (180.0/PI);
 	ahrs_data->YawDeg = ahrs_data->YawRad * (180.0/PI);
 
-	/* Calcolo delle velocità angolari degli angoli */
+
 	ahrs_data->omegaRollRad = imu_temp->gyrRoll ;//* (PI/180.0);
 	ahrs_data->omegaPitchRad = imu_temp->gyrPitch ;//* (PI/180.0);
 	ahrs_data->omegaYawRad = imu_temp->gyrYaw ;//* (PI/180.0);
@@ -147,10 +151,7 @@ void getAHRS(float* pitch, float* yaw, float* roll){
   *yaw   = atan2(2.0f * (q1 * q2 + q0 * q3), q0 * q0 + q1 * q1 - q2 * q2 - q3 * q3);
   *pitch = -asin(2.0f * (q1 * q3 - q0 * q2));
   *roll  = atan2(2.0f * (q0 * q1 + q2 * q3), q0 * q0 - q1 * q1 - q2 * q2 + q3 * q3);
-  /*
-  *yaw   *= 180.0f / PI;
-  *yaw   -= 3.316666666; // Declination at Ancona, Italy is 3 degrees 19 minutes
-  *yaw   *= PI / 180.0f;*/
+
 }
 
 void MadgwickAHRSupdateIMU(float gx, float gy, float gz, float ax, float ay, float az);
