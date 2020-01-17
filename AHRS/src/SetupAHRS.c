@@ -49,14 +49,14 @@ void Setup_MARG(AHRS_out* ahrs)
 	 // it asks to push sw1 or sw2 based on user choise according to wanted parameters displayed
 	while( PORT4.PIDR.BIT.B0 && PORT4.PIDR.BIT.B1){
 
-		//both registers are at 1 so it stays inside cycle until user press one
-		//of sw, when it happened the programme goes out from cycle to right condition
+		//both registers are at 1, so it stays inside cycle until user press one
+		//of the sw, when it happens the programme gets out from the cycle and the right condition is choose.
 
 
 	}
 
 
-//if push sw1 it will start a new calibration
+//if sw1 is pushed it will start a new calibration
 	if(!(PORT4.PIDR.BIT.B0)){
 
 		lcd_initialize();
@@ -72,12 +72,12 @@ void Setup_MARG(AHRS_out* ahrs)
 		calibrationYPR(msg, &ahrs->mag);// new calibration
 
 	}
-	else if (!(PORT4.PIDR.BIT.B1))        //if push sw2 default parameters will be selected
+	else if (!(PORT4.PIDR.BIT.B1))        //if sw2 is pushed  default parameters will be selected
 		calibrationYPR1(msg, &ahrs->mag);
 
 
-	else calibrationYPR1(msg, &ahrs->mag); // if there are some errors default parameters
-										   //will be selected
+	else calibrationYPR1(msg, &ahrs->mag); // if there are some errors, default parameters
+										   //are select
 
 }
 

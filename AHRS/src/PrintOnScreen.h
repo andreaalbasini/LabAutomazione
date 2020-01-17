@@ -51,7 +51,7 @@ void Print_ABS(AHRS_out*);
  * Arguments: Puntatore alla struttura AHRS_data.
  * 			  AHRS_data struct pointer
  * Return value: Stampa su righe 3, 4 e 5.
- * 				 Prints third, forth and fifth line
+ * 				 Prints on the third, the forth and the fifth line.
  **************************************************************************************/
 void Print_Angoli(AHRS_out*);
 
@@ -63,14 +63,14 @@ void Print_Angoli(AHRS_out*);
  * Arguments: Puntatore alla struttura AHRS_data.
  * 			  AHRS_data struct pointer.
  * Return value: Stampa su righe 6, 7 e 8.
- * 				 Prints sixth, seventh and eighth line.
+ * 				 Prints on the sixth,the  seventh and the eighth line.
  **************************************************************************************/
 void Print_VelAng(AHRS_out*);
 
 /***************************************************************************************
  * Function name: RealTimeChart
  * Description  : Aggiorna le variabili dichiarate globalmente, per la funzionalità di debug RealTime-Chart.
- * 				  Debug RealTime-Chart function updates globals variables
+ * 				  it updates the global variables according to use the Real-Time function in Debug mode
  * Arguments    : Puntatore alla struttura AHRS_data.
  *                AHRS_data struct pointer.
  * Return value : None.
@@ -80,11 +80,11 @@ void RealTimeChart(AHRS_out*);
 /***************************************************************************************
  * Print_Temp
  * Description  : Stampa su schermo integrato le velocità angolari della struttura dati imu_temp.
- * 				  Prints imu_temp data struct angular speed on display.
+ * 				  Prints on display the angular speeds contained in imu_temp structure.
  * Arguments    : Puntatore alla struttura AHRS_data.
  * 				  AHRS_data struct pointer.
  * Return value : Stampa su righe 6,7 e 8.
- *                Prints sixth, seventh and eighth line
+ *                Prints on the sixth,the seventh and the eighth line
  **************************************************************************************/
 void Print_Temp(AHRS_out*);
 

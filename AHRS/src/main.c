@@ -22,7 +22,7 @@ AHRS_out ahrs;
 main(void)
 {
 	/*Dichiarazioni strutture dati utilizzate.*/
-	//Declaration of used data structures
+	//Declaration of the data structures that we are going to use here
 	//AHRS_out ahrs;
 	/***************************************************************************************
 	* extern struct timerClocks timers
@@ -51,7 +51,7 @@ main(void)
  	 	*
  	 	* ********************/
 		/*********************
-		 * Setting of read frequency is based on mpu and magnetometer frequency.
+		 * The setting of read frequency is based on mpu and magnetometer frequency.
 		 * Check up these files: imu.c and mag.c
 		 *
 		 * Example:
@@ -73,7 +73,7 @@ main(void)
 
 			/*************
 			 * Data print frequency on display.
-			 * The screen has a his own update frequency
+			 * The screen has an update frequency
 			 * Increasing frequency over 100ms is not recomended
 			 *
 			 */

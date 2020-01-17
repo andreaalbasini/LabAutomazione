@@ -91,9 +91,9 @@ int imu_init();
  * 						contiene dati rielaborati.
  *
  * 					(IMU_raw*, IMU_sens*, IMU_temp*)
- * 						-imu_raw pointer to IMU_raw struct that has IMU raw data.
- * 						-imu_sens pointer to IMU_sens struct that has IMU data.
- * 						-imu_temp pointer to IMU_temp struct that has reworked data.
+ * 						-imu_raw pointer to IMU_raw struct that contains IMU raw data.
+ * 						-imu_sens pointer to IMU_sens struct that contains IMU data.
+ * 						-imu_temp pointer to IMU_temp struct that contains reworked data.
  *
  * Return value : int - 0 se tutto ok.
  * 				  int - 0 if all right.

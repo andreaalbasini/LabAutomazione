@@ -138,7 +138,7 @@ int mag_init(MAG_data* mag_data){
 
 	// leggiamo il registro identificativo e verifichiamo che abbia
 	// il valore costante come da datasheet
-	// Read identification register and verifies that it has
+	// Read identification register and verify that it has
 	// costant value as in datasheet
 	if(i2c_read(HMC5983_ADDRESS, HMC5983_ID_A, 1, &tmp))
 		return 0x2;
@@ -174,7 +174,7 @@ int mag_init(MAG_data* mag_data){
 	default: break;
 	}
     // Dati spostati nella calibrazione di default
-	// Data moved in default calibration
+	// Data updates in default calibration
 /*	mag_data->scale[0] = 0.939307;
 	mag_data->scale[1] = 0.967911;
 	mag_data->scale[2] = 1.108362;

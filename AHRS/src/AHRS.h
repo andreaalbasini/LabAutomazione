@@ -32,43 +32,44 @@
 
 /********************
  * Struttura dati contenente i dati filtrati degli angoli di Tait-Bryan e delle velocità angolari, sia in gradi che in radianti.
-	Data struct contenent filtered data of Tait-Bryan angles and angular speeds, both degrees and radians
+	Data struct whitch contains filtered data of Tait-Bryan angles and angular speeds, in degrees and in radians
 
 
  ********************/
+
 typedef struct{
 	float RollRad;        // Corrisponde all'uscita in radianti dell'asse x di AHRS
-						  // Variable in radiants of AHRS x axis(Angle)
+						  // Variable in radiants of the AHRS x axis(Angle)
 	float PitchRad;       // Corrisponde all'uscita in radianti dell'asse y di AHRS
-						  //Variable in radiants of AHRS y axis(Angle)
+						  //Variable in radiants of the AHRS y axis(Angle)
 	float YawRad;         // Corrisponde all'uscita in radianti dell'asse z di AHRS
-	                      //Variable in radiants of AHRS z axis(Angle)
+	                      //Variable in radiants of the AHRS z axis(Angle)
 	float RollDeg;        // Corrisponde all'uscita in gradi dell'asse x di AHRS
-	                      //Variable in degrees of AHRS x axis(Angle)
+	                      //Variable in degrees of the AHRS x axis(Angle)
 	float PitchDeg;       // Corrisponde all'uscita in gradi dell'asse y di AHRS
-	                      //Variable in degrees of AHRS y axis(Angle)
+	                      //Variable in degrees of the AHRS y axis(Angle)
 	float YawDeg;         // Corrisponde all'uscita in gradi dell'asse z di AHRS
-	                      //Variable in degrees of AHRS z axis(Angle)
+	                      //Variable in degrees of the AHRS z axis(Angle)
 	float omegaRollRad;        // Corrisponde all'uscita in radianti dell'asse x di AHRS (velocità angolare)
-	                           //Variable in radiants of AHRS x axis(angular speed)
+	                           //Variable in radiants of the AHRS x axis(angular speed)
 	float omegaPitchRad;       // Corrisponde all'uscita in radianti dell'asse y di AHRS (velocità angolare)
-	                           //Variable in radiants of AHRS y axis(angular speed)
+	                           //Variable in radiants of the AHRS y axis(angular speed)
 	float omegaYawRad;         // Corrisponde all'uscita in radianti dell'asse z di AHRS (velocità angolare)
-	                           //Variable in radiants of AHRS z axis(angular speed)
+	                           //Variable in radiants of the AHRS z axis(angular speed)
 	float omegaRollDeg;        // Corrisponde all'uscita in gradi dell'asse x di AHRS (velocità angolare)
-	                           //Variable in degrees of AHRS x axis(angular speed)
+	                           //Variable in degrees of the AHRS x axis(angular speed)
 	float omegaPitchDeg;       // Corrisponde all'uscita in gradi dell'asse y di AHRS (velocità angolare)
-	                           //Variable in degrees of AHRS y axis(angular speed)
+	                           //Variable in degrees of the AHRS y axis(angular speed)
 	float omegaYawDeg;         // Corrisponde all'uscita in gradi dell'asse z di AHRS (velocità angolare)
-	                           //Variable in degrees of AHRS z axis(angular speed)
+	                           //Variable in degrees of the AHRS z axis(angular speed)
 }AHRS_data;
 
 /***************************************************************************************
  * Function name: setAHRSFrequency
  * Description: Il filtro ha bisogno di sapere la frequenza con cui sarà chiamata la funzione
 				madgwickFilterUpdate(). Prima di tutto va impostato questo valore.
-				Filter needs to know the frequency function madgwickFilterUpdate() call.
-				First thing to do is set this value.
+				Filter needs to know the call's frequency of the madgwickFilterUpdate() function.
+				First thing to do is to set this value.
  **************************************************************************************/
 void setAHRSFrequency(float f);
 
@@ -92,7 +93,7 @@ void madgwickFilterUpdate(float gx, float gy, float gz, float ax, float ay, floa
 				cui viene aggiornato il filtro, per esempio alla frequenza dell'algoritmo di
 				controllo.
 				This function gets Tait-Bryan's angles.
-				The values has written in the variables passed by reference.
+				it writes the values in the variables, passed by reference.
 				This function can be called with a lower frequency than filter update frequency,
 				for example we can use control algorithm frequency
 
@@ -130,12 +131,12 @@ void getYPR(MAG_data*, IMU_temp*, AHRS_data*);
 
  * Description  : Funzione di calibrazione del magnetometro e stampa su schermo dei parametri;
  * 				  al suo termine si prema SW1 per continuare.
- * 				  Magnetometer calibration function and it prints parameters on display;
- * 				  in the end press sw1 to continue
+ * 				  Magnetometer calibration function. It prints parameters on the display;
+ * 				  in the end press sw1 to continue.
  * Arguments    : Ammette puntatore a char e puntatore a struttura dati AHRS.
- * 				  Allow char pointer and AHRS data struct pointer
+ * 				  Allows char pointer and AHRS data struct pointer
  * Return value : Restituisce su schermo i dati della calibrazione.
- * 				  Return calibration data on display.
+ * 				  Returns on display the calibration data.
 
  **************************************************************************************/
 void calibrationYPR(char*, MAG_data*);
@@ -148,12 +149,12 @@ void calibrationYPR(char*, MAG_data*);
  * Function name: calibrationYPR1
  * Description  : Funzione di calibrazione del magnetometro e stampa su schermo dei parametri;
  * 				  al suo termine si prema SW1 per continuare.
- * 				   Magnetometer calibration function and it prints parameters on display;
+ * 				  Magnetometer calibration function. It prints parameters on display;
  * 				  in the end press sw1 to continue
  * Arguments    : Ammette puntatore a char e puntatore a struttura dati AHRS.
- *                Allow char pointer and AHRS data struct pointer
+ *                Allows char pointer and AHRS data struct pointer
  * Return value : Restituisce su schermo i dati della calibrazione di default.
- *				  Return default calibration data on display.
+ *				  Returns on display the default calibration data.
  *
  ***************************************************************************************/
 void calibrationYPR1(char*, MAG_data*);

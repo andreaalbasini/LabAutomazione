@@ -74,7 +74,7 @@ void calibrationYPR1(char* msg, MAG_data* mag_data)//default calibration
 			while(PORT4.PIDR.BIT.B0);
 
 			//when sw1 is pressed values of angles and angular speeds
-			//will update on display in realtime
+			//are update on display in realtime
 
 			sprintf(msg,"");
 			lcd_display(LCD_LINE1, (uint8_t*)msg);
